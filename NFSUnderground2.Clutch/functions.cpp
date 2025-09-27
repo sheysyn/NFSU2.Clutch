@@ -553,21 +553,11 @@ void
 initialize_rp_b_db_var_disp
 ()
 {
-	*(asm_code_instr_rp_b_db_var_disp + 0)
-		= 0x8B
-		//assembly mov
-		;
-
-	*(asm_code_instr_rp_b_db_var_disp + 1)
-		= 0x0D
-		//assembly ptr
-		;
-
 	for (
 		size_t i
 
-		= 2
-		//because firs two is already filled
+		= 1
+		//because first is already filled
 		;
 
 		i < asm_code_instr_b_arr_size_db_var_disp
@@ -582,7 +572,7 @@ initialize_rp_b_db_var_disp
 			= (
 				reinterpret_cast<uintptr_t>(&script_gear)
 				>>
-				((i - 2) * 8)
+				((i - 1) * 8)
 				) & 0xFF
 			//
 			;
@@ -1218,20 +1208,20 @@ f_game_vars_and_cond_update
 
 			if (
 				*game_var_s_ptr_gearbox_type_flag
-				==
-				static_cast<uint8_t>(game_const_gearbox_type_flag::automatic)
+				!=
+				static_cast<uint8_t>(game_const_gearbox_type_flag::manual)
 				||
 				*game_var_s_ptr_pause_flag
-				==
-				static_cast<uint8_t>(game_const_pause_flag::in)
+				!=
+				static_cast<uint8_t>(game_const_pause_flag::out)
 				||
 				*game_var_s_ptr_cdown_falg
-				==
-				static_cast<uint8_t>(game_const_cdown_flag::in)
+				!=
+				static_cast<uint8_t>(game_const_cdown_flag::out)
 				||
 				gearbox
 				==
-				nullptr/*
+				nullptr
 				||
 				game_var_d_ptr_gear
 				==
@@ -1240,9 +1230,11 @@ f_game_vars_and_cond_update
 				game_var_d_ptr_max_gear
 				==
 				nullptr
-				*/)
+				)
 			{
-				if (permission_for_main)
+				if (
+					permission_for_main
+					)
 				{
 					permission_for_main
 						= false
@@ -1310,7 +1302,7 @@ f_game_vars_and_cond_update
 						;
 				}
 
-			sleep_for_msec(timers::game_variables_update)
+			sleep_for_msec(custom_timers::game_variables_update)
 				//
 				;
 		}
@@ -1360,7 +1352,7 @@ f_gearbox_operating
 				!permission_for_main
 				)
 			{
-				sleep_for_msec((timers::wait_for_permission))
+				sleep_for_msec((custom_timers::wait_for_permission))
 					//
 					;
 
@@ -1374,7 +1366,7 @@ f_gearbox_operating
 				//
 				;
 
-			sleep_for_msec(timers::gearbox_operating)
+			sleep_for_msec(custom_timers::gearbox_operating)
 				//
 				;
 		}

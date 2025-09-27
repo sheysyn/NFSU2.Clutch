@@ -99,7 +99,7 @@ asm_code_instr_off_sh_del
 asm_code_instr_off_db_var_disp
 [] =
 {
-	0xC6A6D
+	0xC6A6E
 }
 //assembly code instuction with dashboard variable display
 ;
@@ -196,8 +196,6 @@ asm_code_instr_rp_b_sh_del
 asm_code_instr_og_b_db_var_disp
 [] =
 {
-	0x8B,
-
 	0x8E,
 
 	0x34,
@@ -229,16 +227,47 @@ asm_code_instr_b_arr_size_db_var_disp
 
 //---------------------------------------------------------------------------
 
-enum class timers : DWORD
+namespace custom_timers
 {
-	wait_for_permission = 100,
+	uint16_t const
 
-	game_variables_update = 30,
+		game_variables_update
+		= config_load_value<uint16_t>
+		(
+			"timers_to_tweak",
 
-	gearbox_operating = 10
+			"game_variables_update",
+
+			30
+		)
+		//
+		,
+
+		wait_for_permission
+		= config_load_value<uint16_t>
+		(
+			"timers_to_tweak",
+
+			"wait_for_permission",
+
+			100
+		)
+		//
+		,
+
+		gearbox_operating
+		= config_load_value<uint16_t>
+		(
+			"timers_to_tweak",
+
+			"gearbox_operating",
+
+			15
+		)
+		//
+		;
 }
-//timer values ​​in ms for Sleep() function in threads
-;
+//timer values ​​in ms for sleep_for_msec() function in threads, for more info look in "macro.h"
 
 enum class gearbox_type :uint8_t
 {

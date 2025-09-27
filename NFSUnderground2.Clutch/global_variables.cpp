@@ -77,9 +77,8 @@ uint8_t
 asm_code_instr_rp_b_db_var_disp
 [] =
 {
-	0x90,
-
-	0x90,
+	//assembly pointer to value without adding any register values
+	0x0D,
 
 	0x90,
 
