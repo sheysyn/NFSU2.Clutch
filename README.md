@@ -8,7 +8,7 @@
 
 >Extract the files from the archive and copy the contents from the "COPY_FROM_ME" folder to the game directory.
 
-# Changing bindings or entire code.
+# Changing bindings.
 
 >Open the .ini file with any text editor.
 
