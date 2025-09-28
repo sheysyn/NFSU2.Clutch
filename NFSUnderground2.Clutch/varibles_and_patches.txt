@@ -1,0 +1,66 @@
+
+//---------------------------------------------------------------------------
+
+[VARIABLES]
+
+[pause_flag]												//out = 04, in = 01
+{4B}[SPEED2.EXE+0x470788]
+
+[countdown_flag]											//out = 04, on = 03	
+{4B}[SPEED2.EXE+0x42B8D4]
+
+[gearbox_type_flag]											//automatic = 00, manual = 01
+{1B}[SPEED2.EXE+0x43AA79]			
+
+[sh_st]														//shared_static_for_next_two_pointers
+{4B}[SPEED2.EXE+0x4659BC]
+
+[gear_var]													//1st is 2, 2nd is 3 and so on
+{4B}[sh_st+0x1E4]
+
+[max_gear_var]												//6 is 6, 7 is 7 and so on
+{4B}[[[sh_st+0x2A8]+0x20]+0x1C8]
+
+//---------------------------------------------------------------------------
+
+[PATCHES]
+
+[DASHBOARD_VARIABLE]
+
+[original_bytes]
+---
+SPEED2.EXE+C6A6D				- 8B 8E 34 04 00 00			- mov ecx,[esi+00000434]		//
+---
+
+[patch_solution]
+SPEED2.EXE+0xC6A6E -> [5]{0x0D, 0xFF, 0xFF, 0xFF, 0xFF}
+
+[for_return_to_original]
+SPEED2.EXE+0xC6A6E -> [5]{0x8E, 0x34, 0x04, 0x00, 0x00}
+
+[patched_version]
+---
+SPEED2.EXE+0xC6A6D				- 8B 0D 78 56 34 12			- mov ecx,[12345678]			//
+---
+
+
+
+[SHIFTING_DELAY]
+
+[original_bytes]
+---
+SPEED2.EXE+0x1A161B				- C7 46 44 02 00 00 00		- mov [esi+44],00000002			//
+---
+
+[patch_solution]
+SPEED2.EXE+0x1A161E -> [1]{0x03}
+
+[for_return_to_original]
+SPEED2.EXE+0x1A161E -> [1]{0x02}
+
+[patched_version]
+---
+SPEED2.EXE+0x1A161B				- C7 46 44 03 00 00 00		- mov [esi+44],00000003			//
+---
+
+//---------------------------------------------------------------------------
