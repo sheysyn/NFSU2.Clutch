@@ -1,6 +1,10 @@
 # Description
 
->It's a .asi script file, which simulates the operation of the clutch. 
+>It's a .asi script file, which simulates the operation of the clutch.
+
+>WHEN USING A SCRIPT, THE REPLAY IS NO LONGER AVAILABLE BECAUSE THE GAME RECORDS ACTIONS AND DATA
+AT A GIVEN TIME, BUT WHEN USING A SCRIPT, THE ACTIONS FROM IT ARE NOT TRANSFERRED TO THE GAME RECORDING,
+BUT THE DATA STILL CHANGES, AND WHEN TRYING TO PLAY BACK, THE DATA DOES NOT MATCH AND THE REPLAY IS INTERRUPTED.
 
 # How to download
 
